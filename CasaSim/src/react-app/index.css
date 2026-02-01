@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-scale: 1;
+}
+
+/* Font size scaling utility classes */
+.text-xs { font-size: calc(0.75rem * var(--font-scale)); }
+.text-sm { font-size: calc(0.875rem * var(--font-scale)); }
+.text-base { font-size: calc(1rem * var(--font-scale)); }
+.text-lg { font-size: calc(1.125rem * var(--font-scale)); }
+.text-xl { font-size: calc(1.25rem * var(--font-scale)); }
+.text-2xl { font-size: calc(1.5rem * var(--font-scale)); }
+.text-3xl { font-size: calc(1.875rem * var(--font-scale)); }
+
+/* High contrast mode styles */
+.high-contrast {
+  --bg-primary: #000000;
+  --bg-secondary: #1a1a1a;
+  --bg-accent: #ffffff;
+  --text-primary: #ffffff;
+  --text-secondary: #ffffff;
+  --text-accent: #000000;
+  --border-primary: #ffffff;
+  --border-secondary: #cccccc;
+  --blue-primary: #0066ff;
+  --blue-secondary: #004dbf;
+}
+
+.high-contrast .bg-black\/60 { background-color: var(--bg-primary) !important; }
+.high-contrast .bg-black\/40 { background-color: var(--bg-secondary) !important; }
+.high-contrast .bg-blue-600 { background-color: var(--blue-primary) !important; }
+.high-contrast .bg-blue-700 { background-color: var(--blue-secondary) !important; }
+.high-contrast .bg-blue-500\/30 { background-color: var(--border-primary) !important; }
+.high-contrast .bg-blue-900\/30 { background-color: var(--bg-secondary) !important; }
+.high-contrast .bg-blue-800\/40 { background-color: var(--bg-secondary) !important; }
+
+.high-contrast .text-white { color: var(--text-primary) !important; }
+.high-contrast .text-blue-200 { color: var(--text-secondary) !important; }
+.high-contrast .text-blue-400 { color: var(--text-primary) !important; }
+
+.high-contrast .border-blue-500\/30 { border-color: var(--border-primary) !important; }
+.high-contrast .border-blue-500\/50 { border-color: var(--border-secondary) !important; }
+
+/* Ensure backdrop blur is removed in high contrast */
+.high-contrast .backdrop-blur-md { backdrop-filter: none !important; }
+.high-contrast .backdrop-blur-sm { backdrop-filter: none !important; }
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1E1E1E;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3B82F6;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2563EB;
+}
+
+/* Mobile-first design - make it look like a phone */
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#root {
+  width: 390px;
+  height: 844px;
+  max-width: 390px;
+  max-height: 844px;
+  margin: 0 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 25px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+/* Desktop centering */
+@media (min-width: 391px) {
+  body {
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  #root {
+    border: 3px solid #333;
+  }
+}
+
+/* Background image for all pages */
+.app-background {
+  background-image: url('https://mocha-cdn.com/019a47b5-965e-7344-8c29-7e7af8e21f38/WhatsApp-Image-2025-08-15-at-7.57.07-PM.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.app-overlay {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(2px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Custom slider styles */
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #3B82F6;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #3B82F6;
+  cursor: pointer;
+  border: none;
+}
