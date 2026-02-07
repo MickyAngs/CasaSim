@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useAuth } from "@getmocha/users-service/react";
+import { useLocalAuth } from "@/react-app/hooks/useLocalAuth";
 import { useAccessibility } from "@/react-app/hooks/useAccessibility";
 import Header from "@/react-app/components/Header";
 import { SidebarNavigation, MenuButton } from "@/react-app/components/SidebarNavigation";
 
 export default function SettingsPage() {
-  const { user, logout } = useAuth();
+  const { user, logout } = useLocalAuth();
   const { fontSize, setFontSize, highContrast, setHighContrast } = useAccessibility();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -32,17 +32,17 @@ export default function SettingsPage() {
   return (
     <div className="min-h-screen">
       <Header title="Configuración y Ajustes" />
-      
+
       <div className="px-6 py-6 space-y-6">
         {/* User Profile Card */}
         <div className="bg-black/60 backdrop-blur-md rounded-2xl p-6 border border-blue-500/30">
           <h3 className="text-white text-lg font-semibold mb-4">Perfil de Usuario</h3>
-          
+
           <div className="space-y-4">
             <div>
               <label className="block text-blue-200 text-sm mb-1">Nombre de Usuario:</label>
               <p className="text-white font-medium">
-                {user?.google_user_data?.name || user?.email || 'Usuario'}
+                {user?.name || user?.email || 'Usuario'}
               </p>
             </div>
 
@@ -65,7 +65,7 @@ export default function SettingsPage() {
         {/* Accessibility Settings Card */}
         <div className="bg-black/60 backdrop-blur-md rounded-2xl p-6 border border-blue-500/30">
           <h3 className="text-white text-lg font-semibold mb-4">Ajustes de Accesibilidad</h3>
-          
+
           <div className="space-y-6">
             {/* Font Size */}
             <div>
@@ -77,11 +77,10 @@ export default function SettingsPage() {
                   <button
                     key={size}
                     onClick={() => setFontSize(size)}
-                    className={`py-3 px-4 rounded-lg font-medium transition-colors text-sm ${
-                      fontSize === size
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-blue-900/30 text-blue-200 hover:bg-blue-800/40'
-                    }`}
+                    className={`py-3 px-4 rounded-lg font-medium transition-colors text-sm ${fontSize === size
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-blue-900/30 text-blue-200 hover:bg-blue-800/40'
+                      }`}
                   >
                     {size}
                   </button>
@@ -97,14 +96,12 @@ export default function SettingsPage() {
                 </label>
                 <button
                   onClick={() => setHighContrast(!highContrast)}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                    highContrast ? 'bg-blue-600' : 'bg-gray-600'
-                  }`}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${highContrast ? 'bg-blue-600' : 'bg-gray-600'
+                    }`}
                 >
                   <span
-                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                      highContrast ? 'translate-x-6' : 'translate-x-1'
-                    }`}
+                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${highContrast ? 'translate-x-6' : 'translate-x-1'
+                      }`}
                   />
                 </button>
               </div>
@@ -164,7 +161,7 @@ export default function SettingsPage() {
             <h3 className="text-white text-lg font-semibold mb-4 text-center">
               ¿Estás seguro que quieres iniciar sesión de nuevo?
             </h3>
-            
+
             <div className="flex space-x-3">
               <button
                 onClick={cancelLogout}
@@ -184,9 +181,9 @@ export default function SettingsPage() {
       )}
 
       <MenuButton onClick={() => setIsSidebarOpen(true)} />
-      <SidebarNavigation 
-        isOpen={isSidebarOpen} 
-        onClose={() => setIsSidebarOpen(false)} 
+      <SidebarNavigation
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
       />
     </div>
   );

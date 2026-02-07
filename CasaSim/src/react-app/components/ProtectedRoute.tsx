@@ -1,13 +1,13 @@
-import { useAuth } from "@getmocha/users-service/react";
 import { Navigate } from "react-router";
 import { Loader2 } from "lucide-react";
+import { useLocalAuth } from "@/react-app/hooks/useLocalAuth";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { user, isPending } = useAuth();
+  const { user, isPending } = useLocalAuth();
 
   if (isPending) {
     return (
@@ -25,3 +25,4 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   return <>{children}</>;
 }
+

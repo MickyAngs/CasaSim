@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { useAuth } from "@getmocha/users-service/react";
+import { useLocalAuth } from "@/react-app/hooks/useLocalAuth";
 import { Home, Sliders, Building, BarChart3, Users, Settings } from "lucide-react";
 import { SidebarNavigation, MenuButton } from "@/react-app/components/SidebarNavigation";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
+  const { user, logout } = useLocalAuth();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -25,9 +25,9 @@ export default function DashboardPage() {
   };
 
   const menuItems = [
-    { 
-      icon: Home, 
-      label: "Iniciar Sesión de Nuevo", 
+    {
+      icon: Home,
+      label: "Iniciar Sesión de Nuevo",
       onClick: handleLogout
     },
     { icon: Sliders, label: "Simulación", onClick: () => navigate('/simulation') },
@@ -76,7 +76,7 @@ export default function DashboardPage() {
             <h3 className="text-white text-lg font-semibold mb-4 text-center">
               ¿Estás seguro que quieres iniciar sesión de nuevo?
             </h3>
-            
+
             <div className="flex space-x-3">
               <button
                 onClick={cancelLogout}
@@ -96,9 +96,9 @@ export default function DashboardPage() {
       )}
 
       <MenuButton onClick={() => setIsSidebarOpen(true)} />
-      <SidebarNavigation 
-        isOpen={isSidebarOpen} 
-        onClose={() => setIsSidebarOpen(false)} 
+      <SidebarNavigation
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
       />
     </div>
   );

@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { useAuth } from "@getmocha/users-service/react";
-import { Navigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import { Loader2 } from "lucide-react";
+import { useLocalAuth } from "@/react-app/hooks/useLocalAuth";
 
 export default function LoginPage() {
-  const { user, isPending, redirectToLogin } = useAuth();
+  const { user, isPending, login } = useLocalAuth();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   if (isPending) {
     return (
@@ -23,12 +25,26 @@ export default function LoginPage() {
     return <Navigate to="/dashboard" replace />;
   }
 
-  const handleGoogleLogin = async () => {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    if (!email || !password) {
+      setError("Por favor ingresa tu correo y contraseña");
+      return;
+    }
+
     setIsLoading(true);
     try {
-      await redirectToLogin();
-    } catch (error) {
-      console.error("Login error:", error);
+      const success = await login(email, password);
+      if (success) {
+        navigate("/dashboard");
+      } else {
+        setError("Error al iniciar sesión");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Error al iniciar sesión");
     } finally {
       setIsLoading(false);
     }
@@ -44,8 +60,14 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <div className="bg-black/60 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-blue-500/30">
+        <form onSubmit={handleLogin} className="bg-black/60 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-blue-500/30">
           <div className="space-y-4">
+            {error && (
+              <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-3 text-red-300 text-sm">
+                {error}
+              </div>
+            )}
+
             <div>
               <label className="block text-white text-sm font-medium mb-2">
                 Correo Electrónico
@@ -73,6 +95,7 @@ export default function LoginPage() {
             </div>
 
             <button
+              type="submit"
               disabled={isLoading}
               className="w-full py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
@@ -86,21 +109,13 @@ export default function LoginPage() {
               )}
             </button>
 
-            <button
-              onClick={handleGoogleLogin}
-              disabled={isLoading}
-              className="w-full py-3 bg-transparent border border-blue-500/50 text-white rounded-lg font-medium hover:bg-blue-600/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Continuar con Google
-            </button>
-
             <div className="text-center">
               <a href="#" className="text-blue-400 text-sm hover:underline">
                 ¿Olvidaste tu contraseña?
               </a>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Home, BarChart3, Settings, HelpCircle, Menu, X, LogOut } from "lucide-react";
 import { useNavigate, useLocation } from "react-router";
-import { useAuth } from "@getmocha/users-service/react";
+import { useLocalAuth } from "@/react-app/hooks/useLocalAuth";
 
 interface SidebarNavigationProps {
   isOpen: boolean;
@@ -11,7 +11,7 @@ interface SidebarNavigationProps {
 export function SidebarNavigation({ isOpen, onClose }: SidebarNavigationProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, logout } = useAuth();
+  const { user, logout } = useLocalAuth();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const handleNavigation = (path: string) => {
@@ -35,24 +35,24 @@ export function SidebarNavigation({ isOpen, onClose }: SidebarNavigationProps) {
   };
 
   const menuItems = [
-    { 
-      icon: Home, 
-      label: "Inicio", 
+    {
+      icon: Home,
+      label: "Inicio",
       path: "/dashboard"
     },
-    { 
-      icon: BarChart3, 
-      label: "Proyectos Guardados", 
+    {
+      icon: BarChart3,
+      label: "Proyectos Guardados",
       path: "/saved-projects"
     },
-    { 
-      icon: Settings, 
-      label: "Configuración", 
+    {
+      icon: Settings,
+      label: "Configuración",
       path: "/settings"
     },
-    { 
-      icon: HelpCircle, 
-      label: "Ayuda", 
+    {
+      icon: HelpCircle,
+      label: "Ayuda",
       path: "/chat"
     },
   ];
@@ -61,16 +61,15 @@ export function SidebarNavigation({ isOpen, onClose }: SidebarNavigationProps) {
     <>
       {/* Backdrop */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
           onClick={onClose}
         />
       )}
 
       {/* Sidebar */}
-      <div className={`fixed top-0 left-0 h-full w-80 bg-black/90 backdrop-blur-md border-r border-blue-500/30 z-50 transform transition-transform duration-300 ease-in-out ${
-        isOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}>
+      <div className={`fixed top-0 left-0 h-full w-80 bg-black/90 backdrop-blur-md border-r border-blue-500/30 z-50 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}>
         <div className="p-6">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
@@ -89,7 +88,7 @@ export function SidebarNavigation({ isOpen, onClose }: SidebarNavigationProps) {
           {/* User Info */}
           <div className="mb-8 p-4 bg-blue-600/20 rounded-lg border border-blue-500/30">
             <div className="text-white font-medium">
-              {user?.google_user_data?.name || user?.email || 'Usuario'}
+              {user?.name || user?.email || 'Usuario'}
             </div>
             <div className="text-blue-200 text-sm">
               {user?.email || 'No disponible'}
@@ -101,16 +100,15 @@ export function SidebarNavigation({ isOpen, onClose }: SidebarNavigationProps) {
             {menuItems.map((item) => {
               const IconComponent = item.icon;
               const isActive = location.pathname === item.path;
-              
+
               return (
                 <button
                   key={item.path}
                   onClick={() => handleNavigation(item.path)}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${
-                    isActive 
-                      ? 'bg-blue-600 text-white' 
-                      : 'text-blue-200 hover:bg-blue-600/20 hover:text-white'
-                  }`}
+                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${isActive
+                    ? 'bg-blue-600 text-white'
+                    : 'text-blue-200 hover:bg-blue-600/20 hover:text-white'
+                    }`}
                 >
                   <IconComponent className="w-5 h-5" />
                   <span>{item.label}</span>
@@ -139,7 +137,7 @@ export function SidebarNavigation({ isOpen, onClose }: SidebarNavigationProps) {
             <h3 className="text-white text-lg font-semibold mb-4 text-center">
               ¿Estás seguro que quieres iniciar sesión de nuevo?
             </h3>
-            
+
             <div className="flex space-x-3">
               <button
                 onClick={cancelLogout}

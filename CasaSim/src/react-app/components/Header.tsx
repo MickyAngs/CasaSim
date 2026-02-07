@@ -1,5 +1,5 @@
 import { Home, LogOut } from "lucide-react";
-import { useAuth } from "@getmocha/users-service/react";
+import { useLocalAuth } from "@/react-app/hooks/useLocalAuth";
 import { useNavigate } from "react-router";
 
 interface HeaderProps {
@@ -9,7 +9,7 @@ interface HeaderProps {
 }
 
 export default function Header({ title = "CasaSim", showLogout = false, showClose = false }: HeaderProps) {
-  const { logout } = useAuth();
+  const { logout } = useLocalAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {

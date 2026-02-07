@@ -1,0 +1,128 @@
+================================================================================
+                            CASASIM - DOCUMENTACIÓN GENERAL
+================================================================================
+
+NOMBRE DE LA APLICACIÓN: CasaSim
+SLOGAN: Simula, analiza y gestiona viviendas sociales para un Perú sostenible.
+VERSIÓN: 1.0.0 (Beta)
+
+--------------------------------------------------------------------------------
+1. INTRODUCCIÓN Y PROPÓSITO
+--------------------------------------------------------------------------------
+CasaSim es una plataforma tecnológica avanzada diseñada para transformar la 
+planificación y ejecución de proyectos de vivienda social en el Perú. Su objetivo 
+principal es optimizar costos, tiempos y sostenibilidad mediante la implementación 
+y comparación de Métodos Modernos de Construcción (MMC) frente a sistemas tradicionales.
+
+La herramienta permite a desarrolladores, constructores y entidades gubernamentales 
+tomar decisiones basadas en datos, visualizando el impacto económico y ambiental 
+de diferentes materiales y tecnologías constructivas antes de poner un solo ladrillo.
+
+--------------------------------------------------------------------------------
+2. FLUJO DE USUARIO Y SEGURIDAD
+--------------------------------------------------------------------------------
+A. INICIO DE SESIÓN (LOGIN)
+   - Acceso seguro mediante autenticación de usuario.
+   - Interfaz limpia y moderna con fondo inmersivo.
+   - Opciones de Registro e Ingreso unificadas.
+   - Validación de credenciales (correo electrónico y contraseña).
+   - Sistema de recuperación de contraseña accesible.
+
+B. SEGURIDAD
+   - Protección de rutas: El acceso a las funcionalidades principales está restringido 
+     a usuarios autenticados.
+   - Gestión de sesiones segura con persistencia local.
+
+--------------------------------------------------------------------------------
+3. DASHBOARD (PANEL DE CONTROL)
+--------------------------------------------------------------------------------
+El centro de mando de CasaSim ofrece un acceso rápido a todas las herramientas:
+   - Navegación Intuitiva: Menú lateral desplegable y accesos directos tipo tarjeta.
+   - Módulos Principales:
+     1. Simulación: Crear nuevos escenarios constructivos.
+     2. Proyectos: Gestión de proyectos activos.
+     3. Proyectos Guardados: Historial y reportes.
+     4. Usuarios: Administración (solo administradores).
+     5. Configuración: Personalización y accesibilidad.
+
+--------------------------------------------------------------------------------
+4. MÓDULO DE SIMULACIÓN AVANZADA
+--------------------------------------------------------------------------------
+El corazón de la aplicación permite configurar parámetros detallados para modelar 
+proyectos de vivienda:
+
+A. PARÁMETROS CONFIGURABLES
+   - Presupuesto Total: Slider interactivo para ajustar la inversión (S/. 100k - 500k+).
+   - Región Geográfica: Adaptación a climas de Costa, Sierra y Selva.
+   - Tipología: Unifamiliar, Multifamiliar, Departamento, Casa Rural.
+   - Escala: Definición del número de familias/unidades (1 a 20+).
+
+B. SELECCIÓN TECNOLÓGICA (MMC)
+   - Sistema Constructivo: Selección entre diversos sistemas industrializados 
+     (Steel Framing, Wood Framing, Concreto Modular, etc.).
+   - Materiales: Base de datos dinámica de materiales con costos actualizados.
+   - Información en Tiempo Real: Al seleccionar un sistema, se muestran inmediatamente:
+     * Ahorro estimado en costos.
+     * Reducción de tiempo de ejecución.
+     * Propiedades de aislamiento térmico.
+     * Huella de carbono.
+
+--------------------------------------------------------------------------------
+5. ANÁLISIS DE RESULTADOS Y METRICAS
+--------------------------------------------------------------------------------
+Una vez configurada la simulación, CasaSim genera un reporte exhaustivo:
+
+A. COMPARATIVA ECONÓMICA
+   - Gráficos de barras comparando "Sistema Base" vs "Sistema Optimizado".
+   - Cálculo automático del Ahorro Total en Soles (S/.) y porcentaje (%).
+   - Desglose de costos por unidad y costo total del proyecto.
+
+B. IMPACTO SOSTENIBLE (ECO-EFICIENCIA)
+   - Métricas Ambientales: Comparación de Huella de Carbono (CO2).
+   - Eficiencia Energética: Porcentaje de ahorro energético estimado.
+   - Productividad: Reducción de Horas-Hombre (H-H) en obra.
+
+C. VISUALIZACIÓN INTELIGENTE (IA)
+   - Renderizado 3D: Generación visual del prototipo con los materiales seleccionados.
+   - Detalles Constructivos: Esquemas técnicos de los sistemas MMC aplicados.
+
+D. VALOR AÑADIDO
+   - Análisis cualitativo de mejoras en acabados y confort para el usuario final.
+
+--------------------------------------------------------------------------------
+6. GESTIÓN Y REPORTES
+--------------------------------------------------------------------------------
+Capacidad para documentar y exportar el trabajo realizado:
+
+A. GUARDADO DE PROYECTOS
+   - Almacenamiento local de escenarios simulados.
+   - Organización por nombre, fecha y región.
+
+B. EXPORTACIÓN
+   - Generación de reportes PDF profesionales listos para descargar.
+   - Ideal para presentar propuestas a Techo Propio, Mivivienda o inversionistas.
+
+--------------------------------------------------------------------------------
+7. ASISTENCIA Y SOPORTE
+--------------------------------------------------------------------------------
+A. CENTRO DE AYUDA (IA CHAT)
+   - Base de conocimientos con Preguntas Frecuentes (FAQs).
+   - Asistente virtual para resolver dudas sobre normativas o sistemas constructivos.
+
+B. ACCESIBILIDAD Y CONFIGURACIÓN
+   - Opciones para ajustar tamaño de texto.
+   - Modo de alto contraste para mejor legibilidad.
+   - Gestión de perfil de usuario.
+
+--------------------------------------------------------------------------------
+TECNOLOGÍA
+--------------------------------------------------------------------------------
+Desarrollado con un stack moderno de alto rendimiento:
+- Frontend: React + TypeScript + Vite (Velocidad y robustez).
+- Estilos: Tailwind CSS (Diseño responsive y moderno).
+- Gráficos: Recharts (Visualización de datos).
+- Iconografía: Lucide React (Interfaz limpia).
+
+================================================================================
+FIN DEL DOCUMENTO
+================================================================================
