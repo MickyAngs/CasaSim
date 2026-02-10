@@ -53,6 +53,21 @@ export const ConstructionSystemSchema = z.object({
   fuente: z.string(),
 });
 
+export const MaterialSchema = z.object({
+  id: z.number().optional(),
+  nombre_material: z.string(),
+  costo_m2_soles: z.number().optional(),
+  impacto_co2_texto: z.string().optional(),
+  ahorro_energia_pct: z.number().optional(),
+  reduccion_hit_pct: z.number().optional(),
+  descripcion: z.string().optional(),
+  categoria: z.string().optional(),
+  disponibilidad_regional: z.string().optional(),
+  es_material_base: z.boolean().optional(),
+  created_at: z.string().optional(),
+  updated_at: z.string().optional(),
+});
+
 export const SimulationParamsSchema = z.object({
   budget: z.number(),
   region: z.string(),
@@ -60,20 +75,7 @@ export const SimulationParamsSchema = z.object({
   familyCount: z.number(),
   wallMaterial: z.string(),
   constructionSystem: z.string().optional(),
-  materialData: z.object({
-    id: z.number().optional(),
-    nombre_material: z.string(),
-    costo_m2_soles: z.number().optional(),
-    impacto_co2_texto: z.string().optional(),
-    ahorro_energia_pct: z.number().optional(),
-    reduccion_hit_pct: z.number().optional(),
-    descripcion: z.string().optional(),
-    categoria: z.string().optional(),
-    disponibilidad_regional: z.string().optional(),
-    es_material_base: z.boolean().optional(),
-    created_at: z.string().optional(),
-    updated_at: z.string().optional(),
-  }).optional(),
+  materialData: MaterialSchema.optional(),
 });
 
 export type OptimizacionType = z.infer<typeof OptimizacionSchema>;
@@ -82,3 +84,4 @@ export type AcabadoValorType = z.infer<typeof AcabadoValorSchema>;
 export type SimulationDataType = z.infer<typeof SimulationDataSchema>;
 export type SimulationParamsType = z.infer<typeof SimulationParamsSchema>;
 export type ConstructionSystemType = z.infer<typeof ConstructionSystemSchema>;
+export type MaterialType = z.infer<typeof MaterialSchema>;

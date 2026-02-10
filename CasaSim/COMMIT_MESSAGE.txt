@@ -1,0 +1,9 @@
+refactor(core): Implement MasonryEngine for precise material calculation (TRL 8)
+feat(ui): Integrate SimulationResults page with MasonryEngine
+style(ui): Update simulation results visual layout
+test(core): Add unit tests for MasonryEngine coverage
+chore(deps): Add vitest for testing infrastructure
+config(build): Optimize tsconfig and exclude worker from frontend build
+fix(ar): Resolve model-viewer TypeScript compatibility issues
+
+BREAKING CHANGE: The SimulationResults component now delegates all logic to MasonryEngine.

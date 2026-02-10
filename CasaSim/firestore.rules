@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Función auxiliar para verificar propiedad
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    // Regla global: Bloquear acceso no autenticado a cualquier documento
+    match /{document=**} {
+      allow read, write: if false; 
+    }
+
+    // Colección de Proyectos de Simulación
+    match /simulations/{simulationId} {
+      // Create: Solo si el ownerId coincide con el UID
+      allow create: if isOwner(request.resource.data.ownerId);
+      
+      // Read/Update/Delete: Solo si el recurso pertenece al usuario actual
+      allow read, update, delete: if isOwner(resource.data.ownerId);
+    }
+
+    // Configuración de Usuario
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+    }
+  }
+}
