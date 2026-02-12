@@ -1,73 +1,40 @@
-# Manual de Mantenimiento - CasaSim (v2.0)
+# Manual de Mantenimiento para Desarrolladores
 
-Este documento detalla la gestión técnica de la base de datos Firestore y las políticas de seguridad para el mantenimiento de largo plazo.
+Guía técnica para la operación y evolución de CasaSim.
 
----
+## 📦 Gestión de Contenidos
 
-## 🏗 Estructura de Base de Datos (Firestore)
+### 1. Actualización de Precios de Materiales
+Los costos unitarios se gestionan directamente en la base de datos Firestore, sin necesidad de redesplegar el código.
+1.  Accede a **Firebase Console** > **Firestore Database**.
+2.  Colección: `materials`.
+3.  Documento: ID del material (ej. `ladrillo_kk18`).
+4.  Campo: `costo_m2_soles` (Number).
+    *   *Nota*: El sistema reflejará el cambio inmediatamente en las nuevas simulaciones.
 
-El sistema opera sobre un modelo NoSQL jerárquico. Las colecciones principales son:
+### 2. Agregar Nuevos Modelos 3D
+Para incorporar nuevos sistemas constructivos:
+1.  Sube los archivos 3D a **Firebase Storage** en la ruta `/assets/models/`.
+    *   Formato Universal: `nombre_modelo.glb`
+    *   Formato iOS (Opcional pero recomendado): `nombre_modelo.usdz`
+2.  Actualiza la URL en la colección `materials` de Firestore (campo `imagen_render_3d`).
 
-### 1. `simulations/`
-Almacena los proyectos de optimización de los usuarios.
-- **Document ID**: Unique `simulationId` (generado automáticamente).
-- **Campos TRL 8**:
-    - `ownerId` (String): UID del usuario creador (Crucial para seguridad).
-    - `name` (String): Nombre del proyecto (e.g., "Módulo Básico en Callao").
-    - `config` (Map): Parámetros de entrada utilizados por el MasonryEngine.
-    - `results` (Map): Resultados calculados (Ladrillos, Cemento, Arena, Costos).
-    - `createdAt` (Timestamp): Fecha de simulación.
+## 🛡 Protocolo de Desarrollo Seguro
 
-### 2. `materials/`
-Catálogo maestro de materiales y precios de referencia.
-- **Document ID**: `materialId` (e.g., `bloques_silice`).
-- **Campos**:
-    - `nombre_material` (String).
-    - `costo_m2_soles` (Number): Precio base actualizado periódicamente.
-    - `imagen_render_3d` (String): URL del modelo GLB.
-    - `ficha_tecnica` (String): URL del PDF técnico.
+Antes de realizar cambios en el código (`src/core` o `src/react-app`), sigue este protocolo para evitar regresiones:
 
----
+### Ejecutar Pruebas Locales
+El `MasonryEngine` está protegido por tests unitarios. Antes de cada commit, ejecuta:
 
-## 🔐 Reglas de Seguridad (Firestore Security Rules)
-
-El archivo `firestore.rules` gobierna el acceso a los datos. La política actual es **MULTI-TENANT STRICT**:
-
-```javascript
-service cloud.firestore {
-  match /databases/{database}/documents {
-    // Proyectos de Simulación: Acceso PRIVADO
-    match /simulations/{simulationId} {
-      allow create: if request.auth != null;
-      allow read, update, delete: if resource.data.ownerId == request.auth.uid;
-    }
-    
-    // Materiales: Acceso PÚBLICO (Solo Lectura)
-    match /materials/{materialId} {
-      allow read: if true;
-      allow write: if false; // Solo administradores desde consola
-    }
-  }
-}
+```bash
+npm run test
 ```
 
-### Modificación de Reglas
-Para actualizar las políticas de seguridad:
-1.  Edita el archivo `firestore.rules` localmente.
-2.  Utiliza el comando de despliegue parcial:
-    ```bash
-    firebase deploy --only firestore:rules
-    ```
+Si modificas la lógica de cálculo (`src/core/MasonryEngine.ts`), debes actualizar o agregar nuevos tests en `src/core/__tests__/`.
+
+### Despliegue
+El despliegue es automático al hacer push a la rama `main`.
+*   **Advertencia**: Si los tests fallan en GitHub Actions, el despliegue se cancelará automáticamente. Revisa la pestaña "Actions" en GitHub para ver los logs de error.
 
 ---
-
-## 🔄 Actualización de Precios y Catálogo
-
-Para reflejar cambios en el mercado sin tocar el código:
-1.  Ingresa a la **Consola de Firebase** > Firestore Database.
-2.  Navega a la colección `materials`.
-3.  Edita directamente el campo `costo_m2_soles` del documento correspondiente.
-4.  Los cambios se reflejarán instantáneamente en todas las nuevas simulaciones.
-
----
-**CasaSim Operations** - *Mantenimiento de Infraestructura Crítica.*
+**CasaSim Devs**
